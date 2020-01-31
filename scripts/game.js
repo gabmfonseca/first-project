@@ -5,13 +5,15 @@ class Game {
     this.$canvas = $canvas;
     this.context = this.$canvas.getContext('2d');
 
-    // this.controller = new Controller(this);
-    // this.controller.setKeyBindings();
+    this.controller = new Controller(this);
+    this.controller.setKeyBindings();
     // this.scoreboard = new Scoreboard(this);
     // this.setControlBindings();
   }
 
   setControlBindings() {
+    // create buttons in html
+    
     // const $buttonStart = document.getElementById('btn-start');
     // const $buttonReset = document.getElementById('btn-reset);
     // const $buttonPause = document.getElementById('btn-pause);
@@ -27,21 +29,22 @@ class Game {
   }
 
   control(value) {
-    // switch (value) {
-    //   case 'up':
-    //   case 'down':
-    //   case 'left':
-    //   case 'right':
-    //     this.robot.direction(value);
-    //     break;
-    // }
+    switch (value) {
+      case 'up':
+        this.robot.moveUp();
+        break;
+      case 'down':
+        this.robot.moveDown();
+        break;
+    }
   }
 
   runLogic() {
-    this.robot.runLogic();
+    // add bone runLogic
 
-    for (let meteor of meteorsArray)
-
+    for (let meteor of meteorsArray) {
+      meteor.runLogic();
+    }
   }
 
   clearScreen() {
@@ -49,12 +52,12 @@ class Game {
     ctx.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
   }
 
-  paint() {
+  drawEverything() {
     this.clearScreen();
-    // this.robot.paint();
-    this.meteor.paint();
-    // this.bone.paint();
-    // this.scoreboard.paint();
+    this.robot.drawRobot();
+    this.meteor.drawMeteor();
+    this.bone.drawBone();
+    // this.scoreboard.drawScoreboard();
   }
 
   fail() {
@@ -88,7 +91,7 @@ class Game {
     this.runLogic();
     this.paint();
     if (this.isRunning) {
-      // windowframe
+      window.requestAnimationFrame(loop);
     }
   }
 }

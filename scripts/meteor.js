@@ -3,30 +3,33 @@ class Meteor {
     this.game = game;
     this.positionX = positionX;
     this.positionY = 0;
-    this.width = 20; // alterar p/ tamanho imagem
-    this.height = 20; // alterar p/ tamanho imagem
+    this.width = 20; // change size
+    this.height = 20; // change size
     this.setRandomPosition();
   }
 
   setRandomPosition() {
-    this.positionY = 50 + Math.random() * 500; // considera altura canvas 600
+    this.positionY = 50 + Math.random() * 500; // for a canvas with 600px height
+
+    // check if it's not in the same place as a bone
   }
 
-  paint() {
-    // para testar funcionamento (será imagem)
-    // const ctx = this.game.context;
-    // ctx.save();
-    // ctx.fillStyle = 'red';
-    // ctx.fillRect(this.positionX, this.positionY, this.width, this.height);
-    // ctx.restore();
-  }
+  drawMeteor() {
+    const ctx = this.game.context;
 
-  checkCollision() {
-    // write code
+    // to test the code > will be erased after adding the image
+    ctx.save();
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.positionX, this.positionY, this.width, this.height);
+    ctx.restore();
+
+    // to add the image
+    // const meteorImage = new Image();
+    // meteorImage.src = '';
+    // ctx.drawImage(meteorImage, this.positionX, this.positionY, this.width, this.height);
   }
 
   runLogic() {
     this.positionX += 2;
-    this.checkCollision();
   }
 }

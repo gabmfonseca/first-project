@@ -1,3 +1,3 @@
 class Scoreboard {
-  //
+  // write code
 }

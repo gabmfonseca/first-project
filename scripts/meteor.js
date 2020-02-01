@@ -1,15 +1,16 @@
 class Meteor {
-  constuctor(game, positionX) {
+  constructor(game, positionX) {
     this.game = game;
     this.positionX = positionX;
     this.positionY = 0;
-    this.width = 20; // change size
-    this.height = 20; // change size
+    this.width = 40; // change size
+    this.height = 40; // change size
+    this.speed = 1.5;
     this.setRandomPosition();
   }
 
   setRandomPosition() {
-    this.positionY = 50 + Math.random() * 500; // for a canvas with 600px height
+    this.positionY = Math.random() * 500; // canvas height 550px
 
     // check if it's not in the same place as a bone
   }
@@ -29,7 +30,7 @@ class Meteor {
     // ctx.drawImage(meteorImage, this.positionX, this.positionY, this.width, this.height);
   }
 
-  runLogic() {
-    this.positionX += 2;
+  move() {
+    this.positionX -= this.speed;
   }
 }

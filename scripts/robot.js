@@ -1,10 +1,10 @@
 class Robot {
-  constuctor(game) {
+  constructor(game) {
     this.game = game;
-    this.positionX = 0;
-    this.positionY = 0;
-    this.width = 20; // change size
-    this.height = 20; // change size
+    this.positionX = 60;
+    this.positionY = 200;
+    this.width = 70; // change size
+    this.height = 70; // change size
   }
 
   drawRobot() {
@@ -23,16 +23,18 @@ class Robot {
   }
 
   moveUp() {
-    if (this.positionY > this.width) {
-      this.positionY -= 20;
-    }
+    this.positionY -= 20;
+    // if (this.positionY > this.width) {
+    //   this.positionY -= 20;
+    // }
   }
 
   moveDown() {
-    const ctx = this.game.context;
+    this.positionY += 20;
+    // const ctx = this.game.context;
 
-    if (this.positionY + this.width < ctx.canvas.width) {
-      this.positionY -= 20;
-    }
+    // if (this.positionY + this.width < ctx.canvas.width) {
+    //   this.positionY += 20;
+    // }
   }
 }

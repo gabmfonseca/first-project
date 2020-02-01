@@ -1,5 +1,8 @@
 const $canvas = document.querySelector('canvas');
 
+let meteorsArray = [];
+let bonesArray = [];
+
 class Game {
   constructor($canvas) {
     this.$canvas = $canvas;
@@ -13,7 +16,6 @@ class Game {
 
   setControlBindings() {
     // create buttons in html
-    
     // const $buttonStart = document.getElementById('btn-start');
     // const $buttonReset = document.getElementById('btn-reset);
     // const $buttonPause = document.getElementById('btn-pause);
@@ -39,14 +41,6 @@ class Game {
     }
   }
 
-  runLogic() {
-    // add bone runLogic
-
-    for (let meteor of meteorsArray) {
-      meteor.runLogic();
-    }
-  }
-
   clearScreen() {
     const ctx = this.context;
     ctx.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
@@ -54,15 +48,23 @@ class Game {
 
   drawEverything() {
     this.clearScreen();
+
     this.robot.drawRobot();
-    this.meteor.drawMeteor();
-    this.bone.drawBone();
+
+    for (let bone of bonesArray) {
+      bone.drawBone();
+    }
+
+    for (let meteor of meteorsArray) {
+      meteor.drawMeteor();
+    }
+
     // this.scoreboard.drawScoreboard();
   }
 
   fail() {
-    // this.isRunning = false;
-    this.reset();
+    this.isRunning = false;
+    // this.start();
   }
 
   pause() {
@@ -70,30 +72,42 @@ class Game {
   }
 
   start() {
-    this.reset();
-    this.loop();
-  }
+    this.isRunning = true;
 
-  reset() {
-    // this.speed = 2;
+    this.robot = new Robot(this);
 
-    let meteorsArray = [];
     for (let i = 0; i < 50; i++) {
-      let meteor = new Meteor(i * -200);
+      let meteor = new Meteor(this, 400 + i * 200);
       meteorsArray.push(meteor);
     }
 
-    // this.robot = new Robot(this);
-    // this.isRunning = true;
+    for (let i = 0; i < 50; i++) {
+      let bone = new Bone(this, 500 + i * 200);
+      bonesArray.push(bone);
+    }
+
+    this.loop();
+  }
+
+  move() {
+    for (let bone of bonesArray) {
+      bone.move();
+    }
+
+    for (let meteor of meteorsArray) {
+      meteor.move();
+    }
   }
 
   loop() {
-    this.runLogic();
-    this.paint();
+    this.drawEverything();
+    this.move();
+
     if (this.isRunning) {
-      window.requestAnimationFrame(loop);
+      requestAnimationFrame(this.loop.bind(this));
     }
   }
 }
 
-// const game = new Game($canvas);
+const game = new Game($canvas);
+game.start();

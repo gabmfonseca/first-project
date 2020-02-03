@@ -50,6 +50,9 @@ class Robot {
     ) {
       if (type === 'Meteor') {
         this.game.scoreboard.lifeBar--;
+        if (this.game.scoreboard.lifeBar === 0) {
+          this.game.fail();
+        }
       } else if (type === 'Bone') {
         this.game.scoreboard.lifeBar++;
       }

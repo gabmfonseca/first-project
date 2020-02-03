@@ -20,7 +20,7 @@ class Game {
 
     $buttonStart.addEventListener('click', () => {
       this.start();
-      this.countdown();
+      this.scoreboard.countdown();
     });
 
     $buttonPause.addEventListener('click', () => {
@@ -93,17 +93,17 @@ class Game {
     this.loop();
   }
 
-  countdown() {
-    // setInterval(function() {
-    //   if (this.isRunning) {
-    //     timeLeft--;
-    //   }
-    // }, 1000);
+  // countdown() {
+  //   setInterval(function() {
+  //     if (this.isRunning) {
+  //       timeLeft--;
+  //     }
+  //   }, 1000);
 
-    setInterval(function() {
-      this.scoreboard.timeLeft--;
-    }, 1000);
-  }
+  //   setInterval(function() {
+  //     this.scoreboard.timeLeft--;
+  //   }, 1000);
+  // }
 
   move() {
     for (let bone of bonesArray) {

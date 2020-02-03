@@ -4,7 +4,6 @@ class Scoreboard {
     this.height = 40; // change size
     this.lifeBar = 3;
     this.timeLeft = 60;
-    this.distance = this.timeLeft * 27.65;
   }
 
   drawScore() {
@@ -19,12 +18,27 @@ class Scoreboard {
     ctx.fillStyle = 'black';
     ctx.font = '20px sans-serif';
     ctx.fillText('Lives: ' + this.lifeBar, 10, 25);
-    ctx.fillText(`Distance from Earth: ${this.distance}km`, 110, 25);
+    ctx.fillText(`Distance from Earth: ${(this.timeLeft * 27.65).toFixed(0)}km`, 110, 25);
     ctx.restore();
 
     // to add the image
     // const lifebarImage = new Image();
     // lifebarImage.src = '';
     // ctx.drawImage(lifebarImage, 0, 0, this.width, this.height);
+  }
+
+  countdown() {
+    const countdown = () => {
+      console.log(this.timeLeft);
+
+      if (this.timeLeft > 0) {
+        this.timeLeft--;
+      } else if (this.timeLeft === 0) {
+        console.log('game won');
+        this.game.isRunning = false;
+      }
+    };
+
+    setInterval(countdown, 1000);
   }
 }

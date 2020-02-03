@@ -10,23 +10,26 @@ class Game {
 
     this.controller = new Controller(this);
     this.controller.setKeyBindings();
-    // this.scoreboard = new Scoreboard(this);
-    // this.setControlBindings();
+    this.scoreboard = new Scoreboard(this);
+    this.setControlBindings();
   }
 
   setControlBindings() {
-    // create buttons in html
-    // const $buttonStart = document.getElementById('btn-start');
+    const $buttonStart = document.getElementById('btn-start');
+    const $buttonPause = document.getElementById('btn-pause');
+
+    $buttonStart.addEventListener('click', () => {
+      this.start();
+      this.countdown();
+    });
+
+    $buttonPause.addEventListener('click', () => {
+      this.pause();
+    });
+
     // const $buttonReset = document.getElementById('btn-reset);
-    // const $buttonPause = document.getElementById('btn-pause);
-    // $buttonStart.addEventListener('click', () => {
-    //   this.start();
-    // });
     // $buttonReset.addEventListener('click', () => {
     //   this.reset();
-    // });
-    // $buttonPause.addEventListener('click', () => {
-    //   this.pause();
     // });
   }
 
@@ -59,11 +62,12 @@ class Game {
       meteor.drawMeteor();
     }
 
-    // this.scoreboard.drawScoreboard();
+    this.scoreboard.drawScore();
   }
 
   fail() {
     this.isRunning = false;
+    console.log('fail');
     // this.start();
   }
 
@@ -89,6 +93,18 @@ class Game {
     this.loop();
   }
 
+  countdown() {
+    // setInterval(function() {
+    //   if (this.isRunning) {
+    //     timeLeft--;
+    //   }
+    // }, 1000);
+
+    setInterval(function() {
+      this.scoreboard.timeLeft--;
+    }, 1000);
+  }
+
   move() {
     for (let bone of bonesArray) {
       bone.move();
@@ -110,4 +126,4 @@ class Game {
 }
 
 const game = new Game($canvas);
-game.start();
+// game.start();

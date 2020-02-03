@@ -32,5 +32,7 @@ class Meteor {
 
   move() {
     this.positionX -= this.speed;
+
+    this.game.robot.checkCollision(this);
   }
 }

@@ -17,24 +17,42 @@ class Robot {
     ctx.restore();
 
     // to add the image
-    //const robotImage = new Image();
-    //robotImage.src = '';
-    //ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
+    // const robotImage = new Image();
+    // robotImage.src = '../images/robot_up.png';
+    // ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
   }
 
   moveUp() {
-    this.positionY -= 20;
-    // if (this.positionY > this.width) {
-    //   this.positionY -= 20;
-    // }
+    if (this.positionY > 10) {
+      this.positionY -= 20;
+    }
   }
 
   moveDown() {
-    this.positionY += 20;
-    // const ctx = this.game.context;
+    const ctx = this.game.context;
 
-    // if (this.positionY + this.width < ctx.canvas.width) {
-    //   this.positionY += 20;
-    // }
+    if (this.positionY + this.height < ctx.canvas.height) {
+      this.positionY += 20;
+    }
+  }
+
+  checkCollision(object) {
+    const type = object.constructor.name;
+
+    // First, check if there's a collision
+    // Then, check the type of object that collided (meteor or bone) and access the lifeBar
+
+    if (
+      object.positionX + 1 > this.positionX + this.width &&
+      object.positionX - 1 < this.positionX + this.width &&
+      this.positionY + this.height > object.positionY &&
+      this.positionY < object.positionY + object.height
+    ) {
+      if (type === 'Meteor') {
+        this.game.scoreboard.lifeBar--;
+      } else if (type === 'Bone') {
+        this.game.scoreboard.lifeBar++;
+      }
+    }
   }
 }

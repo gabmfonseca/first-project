@@ -81,7 +81,15 @@ class Game {
 
   start() {
     this.reset();
-    this.loop();
+
+    if (!this.isRunning) {
+      this.isRunning = true;
+      this.loop();
+    }
+
+    if (!this.animation) {
+      this.loop();
+    }
   }
 
   reset() {
@@ -111,10 +119,12 @@ class Game {
       this.bonesArray.push(bone);
     }
 
-    this.scoreboard = new Scoreboard(this);
-    this.scoreboard.countdown();
-
-    this.isRunning = true;
+    if (!this.isRunning) {
+      this.scoreboard = new Scoreboard(this);
+      this.scoreboard.countdown();
+    } else {
+      this.scoreboard.reset();
+    }
   }
 
   move() {
@@ -140,7 +150,9 @@ class Game {
     this.move();
 
     if (this.isRunning) {
-      requestAnimationFrame(this.loop.bind(this));
+      this.animation = requestAnimationFrame(this.loop.bind(this));
+    } else if (!this.isRunning) {
+      cancelAnimationFrame(this.animation);
     }
   }
 }

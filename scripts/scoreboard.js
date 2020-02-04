@@ -27,19 +27,30 @@ class Scoreboard {
     // ctx.drawImage(lifebarImage, 0, 0, this.width, this.height);
   }
 
+  reset() {
+    this.lifeBar = 3;
+    this.timeLeft = 60;
+  }
+
   countdown() {
     const countdown = () => {
       if (this.game.isRunning) {
         console.log(this.timeLeft);
         if (this.timeLeft > 0) {
           this.timeLeft--;
-        } else if (this.timeLeft === 0) {
+        } else if (this.timeLeft === 0 || this.lifeBar === 0) {
           console.log('game won');
           this.game.isRunning = false;
         }
       }
+
+      if (this.lifeBar === 0) {
+        this.game.isRunning = false;
+        console.log('loose');
+        clearInterval(intervalID);
+      }
     };
 
-    setInterval(countdown, 1000);
+    let intervalID = setInterval(countdown, 1000);
   }
 }

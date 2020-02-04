@@ -5,11 +5,38 @@ class Robot {
     this.positionY = 200;
     this.width = 150;
     this.height = 130;
+    this.shifts = 0;
+    this.frameWidth = 250;
+    this.frameHeight = 250;
+    this.totalFrames = 3;
+    this.currentFrame = 0;
   }
 
   drawRobot() {
-    const ctx = this.game.context;
-    ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
+    // const ctx = this.game.context;
+    // ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
+
+    this.game.context.drawImage(
+      robotImage,
+      this.shifts,
+      0,
+      this.frameWidth,
+      this.frameHeight,
+      this.positionX,
+      this.positionY,
+      this.width,
+      this.height
+    );
+
+    this.shifts += this.frameWidth + 1;
+
+    if (this.currentFrame == this.totalFrames) {
+      this.shifts = 0;
+      this.currentFrame = 0;
+    }
+
+    this.currentFrame++;
+    // requestAnimationFrame(this.drawRobot.bind(this));
   }
 
   moveUp() {
@@ -54,9 +81,9 @@ class Robot {
       if (type === 'Meteor') {
         this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
         this.game.scoreboard.lifeBar--;
-        if (this.game.scoreboard.lifeBar === 0) {
-          this.game.fail();
-        }
+        // if (this.game.scoreboard.lifeBar === 0) {
+        //   this.game.fail();
+        // }
       } else if (type === 'Bone') {
         this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
         if (this.game.scoreboard.lifeBar < 3) {

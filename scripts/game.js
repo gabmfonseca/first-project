@@ -7,9 +7,7 @@ class Game {
 
     this.controller = new Controller(this);
     this.controller.setKeyBindings();
-    this.scoreboard = new Scoreboard(this);
     this.setControlBindings();
-    this.star = new Star(this);
   }
 
   setControlBindings() {
@@ -18,7 +16,6 @@ class Game {
 
     $buttonStart.addEventListener('click', () => {
       this.start();
-      this.scoreboard.countdown();
     });
 
     $buttonPause.addEventListener('click', () => {
@@ -51,19 +48,19 @@ class Game {
   drawEverything() {
     this.clearScreen();
 
-    for (let star of starsArray) {
+    for (let star of this.starsArray) {
       star.drawStar();
     }
 
-    for (let rock of rocksArray) {
+    for (let rock of this.rocksArray) {
       rock.drawRock();
     }
 
-    for (let meteor of meteorsArray) {
+    for (let meteor of this.meteorsArray) {
       meteor.drawMeteor();
     }
 
-    for (let bone of bonesArray) {
+    for (let bone of this.bonesArray) {
       bone.drawBone();
     }
 
@@ -83,47 +80,57 @@ class Game {
   }
 
   start() {
-    this.isRunning = true;
+    this.reset();
+    this.loop();
+  }
 
+  reset() {
+    this.starsArray = [];
     for (let i = 0; i < 1000; i++) {
       let star = new Star(this, i * 20);
-      starsArray.push(star);
+      this.starsArray.push(star);
     }
 
+    this.rocksArray = [];
     for (let i = 0; i < 80; i++) {
       let rock = new Rock(this, i * 400);
-      rocksArray.push(rock);
+      this.rocksArray.push(rock);
     }
 
     this.robot = new Robot(this);
 
+    this.meteorsArray = [];
     for (let i = 0; i < 100; i++) {
       let meteor = new Meteor(this, 400 + i * 250);
-      meteorsArray.push(meteor);
+      this.meteorsArray.push(meteor);
     }
 
+    this.bonesArray = [];
     for (let i = 0; i < 50; i++) {
       let bone = new Bone(this, 500 + i * 700);
-      bonesArray.push(bone);
+      this.bonesArray.push(bone);
     }
 
-    this.loop();
+    this.scoreboard = new Scoreboard(this);
+    this.scoreboard.countdown();
+
+    this.isRunning = true;
   }
 
   move() {
-    for (let bone of bonesArray) {
+    for (let bone of this.bonesArray) {
       bone.move();
     }
 
-    for (let meteor of meteorsArray) {
+    for (let meteor of this.meteorsArray) {
       meteor.move();
     }
 
-    for (let star of starsArray) {
+    for (let star of this.starsArray) {
       star.move();
     }
 
-    for (let rock of rocksArray) {
+    for (let rock of this.rocksArray) {
       rock.move();
     }
   }

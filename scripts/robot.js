@@ -3,8 +3,8 @@ class Robot {
     this.game = game;
     this.positionX = 60;
     this.positionY = 200;
-    this.width = 130; // change size
-    this.height = 130; // change size
+    this.width = 150;
+    this.height = 130;
   }
 
   drawRobot() {
@@ -52,13 +52,13 @@ class Robot {
       this.positionY < object.positionY + object.height
     ) {
       if (type === 'Meteor') {
-        meteorsArray.splice(meteorsArray.indexOf(object), 1);
+        this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
         this.game.scoreboard.lifeBar--;
         if (this.game.scoreboard.lifeBar === 0) {
           this.game.fail();
         }
       } else if (type === 'Bone') {
-        bonesArray.splice(bonesArray.indexOf(object), 1);
+        this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }

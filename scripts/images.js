@@ -1,10 +1,3 @@
-// Arrays
-let meteorsArray = [];
-let bonesArray = [];
-let starsArray = [];
-let rocksArray = [];
-
-// Images
 const boneImage = new Image();
 boneImage.src = '../images/bone@2x.png';
 

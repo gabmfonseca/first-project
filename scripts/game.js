@@ -2,6 +2,8 @@ const $canvas = document.querySelector('canvas');
 
 let meteorsArray = [];
 let bonesArray = [];
+let starsArray = [];
+let rocksArray = [];
 
 class Game {
   constructor($canvas) {
@@ -12,6 +14,7 @@ class Game {
     this.controller.setKeyBindings();
     this.scoreboard = new Scoreboard(this);
     this.setControlBindings();
+    this.star = new Star(this);
   }
 
   setControlBindings() {
@@ -26,11 +29,6 @@ class Game {
     $buttonPause.addEventListener('click', () => {
       this.pause();
     });
-
-    // const $buttonReset = document.getElementById('btn-reset);
-    // $buttonReset.addEventListener('click', () => {
-    //   this.reset();
-    // });
   }
 
   control(value) {
@@ -40,6 +38,12 @@ class Game {
         break;
       case 'down':
         this.robot.moveDown();
+        break;
+      case 'left':
+        this.robot.moveLeft();
+        break;
+      case 'right':
+        this.robot.moveRight();
         break;
     }
   }
@@ -52,7 +56,13 @@ class Game {
   drawEverything() {
     this.clearScreen();
 
-    this.robot.drawRobot();
+    for (let star of starsArray) {
+      star.drawStar();
+    }
+
+    for (let rock of rocksArray) {
+      rock.drawRock();
+    }
 
     for (let bone of bonesArray) {
       bone.drawBone();
@@ -61,6 +71,8 @@ class Game {
     for (let meteor of meteorsArray) {
       meteor.drawMeteor();
     }
+
+    this.robot.drawRobot();
 
     this.scoreboard.drawScore();
   }
@@ -78,32 +90,30 @@ class Game {
   start() {
     this.isRunning = true;
 
+    for (let i = 0; i < 500; i++) {
+      let star = new Star(this, i * 20);
+      starsArray.push(star);
+    }
+
+    for (let i = 0; i < 50; i++) {
+      let rock = new Rock(this, i * 400);
+      rocksArray.push(rock);
+    }
+
     this.robot = new Robot(this);
 
     for (let i = 0; i < 50; i++) {
-      let meteor = new Meteor(this, 400 + i * 200);
+      let meteor = new Meteor(this, 400 + i * 350);
       meteorsArray.push(meteor);
     }
 
     for (let i = 0; i < 50; i++) {
-      let bone = new Bone(this, 500 + i * 200);
+      let bone = new Bone(this, 500 + i * 700);
       bonesArray.push(bone);
     }
 
     this.loop();
   }
-
-  // countdown() {
-  //   setInterval(function() {
-  //     if (this.isRunning) {
-  //       timeLeft--;
-  //     }
-  //   }, 1000);
-
-  //   setInterval(function() {
-  //     this.scoreboard.timeLeft--;
-  //   }, 1000);
-  // }
 
   move() {
     for (let bone of bonesArray) {
@@ -112,6 +122,14 @@ class Game {
 
     for (let meteor of meteorsArray) {
       meteor.move();
+    }
+
+    for (let star of starsArray) {
+      star.move();
+    }
+
+    for (let rock of rocksArray) {
+      rock.move();
     }
   }
 

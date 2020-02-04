@@ -3,27 +3,19 @@ class Robot {
     this.game = game;
     this.positionX = 60;
     this.positionY = 200;
-    this.width = 70; // change size
-    this.height = 70; // change size
+    this.width = 100; // change size
+    this.height = 100; // change size
   }
 
   drawRobot() {
     const ctx = this.game.context;
-
-    // to test the code > will be erased after adding the image
-    ctx.save();
-    ctx.fillStyle = 'green';
-    ctx.fillRect(this.positionX, this.positionY, this.width, this.height);
-    ctx.restore();
-
-    // to add the image
-    // const robotImage = new Image();
-    // robotImage.src = '../images/robot_up.png';
-    // ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
+    const robotImage = new Image();
+    robotImage.src = '../images/robot@2x.png';
+    ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
   }
 
   moveUp() {
-    if (this.positionY > 10) {
+    if (this.positionY > this.game.scoreboard.height) {
       this.positionY -= 20;
     }
   }
@@ -33,6 +25,19 @@ class Robot {
 
     if (this.positionY + this.height < ctx.canvas.height) {
       this.positionY += 20;
+    }
+  }
+
+  moveLeft() {
+    if (this.positionX > 10) {
+      this.positionX -= 20;
+    }
+  }
+
+  moveRight() {
+    const ctx = this.game.context;
+    if (this.positionX + this.width < ctx.canvas.width) {
+      this.positionX += 20;
     }
   }
 
@@ -53,7 +58,7 @@ class Robot {
         if (this.game.scoreboard.lifeBar === 0) {
           this.game.fail();
         }
-      } else if (type === 'Bone') {
+      } else if (type === 'Bone' && this.game.scoreboard.lifeBar < 3) {
         this.game.scoreboard.lifeBar++;
       }
     }

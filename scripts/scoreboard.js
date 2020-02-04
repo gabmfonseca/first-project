@@ -10,9 +10,9 @@ class Scoreboard {
     // replace with life bar image
     let ctx = this.game.context;
     ctx.save();
-    ctx.fillStyle = 'white';
+    ctx.fillStyle = 'black';
     ctx.fillRect(0, 0, 375, this.height);
-    ctx.fillStyle = 'yellow';
+    ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, 90, this.height);
     ctx.fillRect(100, 0, 275, this.height);
     ctx.fillStyle = 'black';
@@ -29,13 +29,14 @@ class Scoreboard {
 
   countdown() {
     const countdown = () => {
-      console.log(this.timeLeft);
-
-      if (this.timeLeft > 0) {
-        this.timeLeft--;
-      } else if (this.timeLeft === 0) {
-        console.log('game won');
-        this.game.isRunning = false;
+      if (this.game.isRunning) {
+        console.log(this.timeLeft);
+        if (this.timeLeft > 0) {
+          this.timeLeft--;
+        } else if (this.timeLeft === 0) {
+          console.log('game won');
+          this.game.isRunning = false;
+        }
       }
     };
 

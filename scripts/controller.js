@@ -14,6 +14,14 @@ class Controller {
           event.preventDefault();
           this.game.control('down');
           break;
+        case 'ArrowLeft':
+          event.preventDefault();
+          this.game.control('left');
+          break;
+        case 'ArrowRight':
+          event.preventDefault();
+          this.game.control('right');
+          break;
       }
     });
   }

@@ -3,8 +3,8 @@ class Meteor {
     this.game = game;
     this.positionX = positionX;
     this.positionY = 0;
-    this.width = 60; // change size
-    this.height = 60; // change size
+    this.width = 60;
+    this.height = 60;
     this.speed = 4;
     this.setRandomPosition();
   }
@@ -16,11 +16,8 @@ class Meteor {
   }
 
   drawMeteor() {
-    const ctx = this.game.context;
-
     // see how to rotate the image
-    const meteorImage = new Image();
-    meteorImage.src = '../images/meteor.png';
+    const ctx = this.game.context;
     ctx.drawImage(meteorImage, this.positionX, this.positionY, this.width, this.height);
   }
 

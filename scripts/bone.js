@@ -3,8 +3,8 @@ class Bone {
     this.game = game;
     this.positionX = positionX;
     this.positionY = 0;
-    this.width = 30; // change size
-    this.height = 30; // change size
+    this.width = 30;
+    this.height = 30;
     this.speed = 1;
     this.setRandomPosition();
   }
@@ -17,17 +17,7 @@ class Bone {
 
   drawBone() {
     const ctx = this.game.context;
-
-    // to test the code > will be erased after adding the image
-    ctx.save();
-    ctx.fillStyle = 'blue';
-    ctx.fillRect(this.positionX, this.positionY, this.width, this.height);
-    ctx.restore();
-
-    // to add the image
-    // const boneImage = new Image();
-    // boneImage.src = '';
-    // ctx.drawImage(boneImage, this.positionX, this.positionY, this.width, this.height);
+    ctx.drawImage(boneImage, this.positionX, this.positionY, this.width, this.height);
   }
 
   move() {

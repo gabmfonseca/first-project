@@ -3,14 +3,12 @@ class Robot {
     this.game = game;
     this.positionX = 60;
     this.positionY = 200;
-    this.width = 100; // change size
-    this.height = 100; // change size
+    this.width = 130; // change size
+    this.height = 130; // change size
   }
 
   drawRobot() {
     const ctx = this.game.context;
-    const robotImage = new Image();
-    robotImage.src = '../images/robot@2x.png';
     ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
   }
 
@@ -48,18 +46,22 @@ class Robot {
     // Then, check the type of object that collided (meteor or bone) and access the lifeBar
 
     if (
-      object.positionX + 1 > this.positionX + this.width &&
-      object.positionX - 1 < this.positionX + this.width &&
+      this.positionX + this.width > object.positionX &&
+      this.positionX < object.positionX + object.width &&
       this.positionY + this.height > object.positionY &&
       this.positionY < object.positionY + object.height
     ) {
       if (type === 'Meteor') {
+        meteorsArray.splice(meteorsArray.indexOf(object), 1);
         this.game.scoreboard.lifeBar--;
         if (this.game.scoreboard.lifeBar === 0) {
           this.game.fail();
         }
-      } else if (type === 'Bone' && this.game.scoreboard.lifeBar < 3) {
-        this.game.scoreboard.lifeBar++;
+      } else if (type === 'Bone') {
+        bonesArray.splice(bonesArray.indexOf(object), 1);
+        if (this.game.scoreboard.lifeBar < 3) {
+          this.game.scoreboard.lifeBar++;
+        }
       }
     }
   }

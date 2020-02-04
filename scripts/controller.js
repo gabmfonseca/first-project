@@ -5,6 +5,7 @@ class Controller {
 
   setKeyBindings() {
     window.addEventListener('keydown', event => {
+      // robotImage.src = '../images/robotmoving.svg';
       switch (event.key) {
         case 'ArrowUp':
           event.preventDefault();

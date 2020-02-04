@@ -54,9 +54,6 @@ class Rock {
 
   drawRock() {
     const ctx = this.game.context;
-
-    const rockImage = new Image();
-    rockImage.src = '../images/rock.png';
     ctx.drawImage(rockImage, this.positionX, this.positionY, this.dimension, this.dimension);
   }
 

@@ -1,10 +1,5 @@
 const $canvas = document.querySelector('canvas');
 
-let meteorsArray = [];
-let bonesArray = [];
-let starsArray = [];
-let rocksArray = [];
-
 class Game {
   constructor($canvas) {
     this.$canvas = $canvas;
@@ -64,12 +59,12 @@ class Game {
       rock.drawRock();
     }
 
-    for (let bone of bonesArray) {
-      bone.drawBone();
-    }
-
     for (let meteor of meteorsArray) {
       meteor.drawMeteor();
+    }
+
+    for (let bone of bonesArray) {
+      bone.drawBone();
     }
 
     this.robot.drawRobot();
@@ -80,30 +75,30 @@ class Game {
   fail() {
     this.isRunning = false;
     console.log('fail');
-    // this.start();
   }
 
   pause() {
     this.isRunning = !this.isRunning;
+    this.loop();
   }
 
   start() {
     this.isRunning = true;
 
-    for (let i = 0; i < 500; i++) {
+    for (let i = 0; i < 1000; i++) {
       let star = new Star(this, i * 20);
       starsArray.push(star);
     }
 
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 80; i++) {
       let rock = new Rock(this, i * 400);
       rocksArray.push(rock);
     }
 
     this.robot = new Robot(this);
 
-    for (let i = 0; i < 50; i++) {
-      let meteor = new Meteor(this, 400 + i * 350);
+    for (let i = 0; i < 100; i++) {
+      let meteor = new Meteor(this, 400 + i * 250);
       meteorsArray.push(meteor);
     }
 

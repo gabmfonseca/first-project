@@ -45,7 +45,7 @@ class Game {
     ctx.clearRect(0, 0, this.$canvas.width, this.$canvas.height);
   }
 
-  drawEverything() {
+  drawEverything(timestamp) {
     this.clearScreen();
 
     for (let star of this.starsArray) {
@@ -57,14 +57,14 @@ class Game {
     }
 
     for (let meteor of this.meteorsArray) {
-      meteor.drawMeteor();
+      meteor.drawMeteor(timestamp);
     }
 
     for (let bone of this.bonesArray) {
       bone.drawBone();
     }
 
-    this.robot.drawRobot();
+    this.robot.drawRobot(timestamp);
 
     this.scoreboard.drawScore();
   }
@@ -145,12 +145,12 @@ class Game {
     }
   }
 
-  loop() {
-    this.drawEverything();
+  loop(timestamp) {
+    this.drawEverything(timestamp);
     this.move();
 
     if (this.isRunning) {
-      this.animation = requestAnimationFrame(this.loop.bind(this));
+      this.animation = requestAnimationFrame(timestamp => this.loop(timestamp));
     } else if (!this.isRunning) {
       cancelAnimationFrame(this.animation);
     }

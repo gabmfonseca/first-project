@@ -46,7 +46,7 @@ class Scoreboard {
 
       if (this.lifeBar === 0) {
         this.game.isRunning = false;
-        console.log('loose');
+        console.log('fail');
         clearInterval(intervalID);
       }
     };

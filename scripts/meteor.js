@@ -12,6 +12,8 @@ class Meteor {
     this.frameHeight = 250;
     this.totalFrames = 3;
     this.currentFrame = 0;
+    this.changeSpeed = 100;
+    this.timer = 0;
   }
 
   setRandomPosition() {
@@ -20,7 +22,7 @@ class Meteor {
     // check if it's not in the same place as a bone
   }
 
-  drawMeteor() {
+  drawMeteor(timestamp) {
     // const ctx = this.game.context;
     // ctx.drawImage(meteorImage, this.positionX, this.positionY, this.width, this.height);
 
@@ -36,17 +38,18 @@ class Meteor {
       this.height
     );
 
-    
+    if (this.timer < timestamp - this.changeSpeed) {
+      this.timer = timestamp;
 
-    this.shifts += this.frameWidth + 1;
+      this.shifts += this.frameWidth + 1;
 
-    if (this.currentFrame === this.totalFrames) {
-      this.shifts = 0;
-      this.currentFrame = 0;
+      if (this.currentFrame == this.totalFrames) {
+        this.shifts = 0;
+        this.currentFrame = 0;
+      }
+
+      this.currentFrame++;
     }
-
-    this.currentFrame++;
-    // requestAnimationFrame(this.drawMeteor.bind(this));
   }
 
   move() {

@@ -10,9 +10,11 @@ class Robot {
     this.frameHeight = 250;
     this.totalFrames = 3;
     this.currentFrame = 0;
+    this.changeSpeed = 100;
+    this.timer = 0;
   }
 
-  drawRobot() {
+  drawRobot(timestamp) {
     // const ctx = this.game.context;
     // ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
 
@@ -28,15 +30,18 @@ class Robot {
       this.height
     );
 
-    this.shifts += this.frameWidth + 1;
+    if (this.timer < timestamp - this.changeSpeed) {
+      this.timer = timestamp;
 
-    if (this.currentFrame == this.totalFrames) {
-      this.shifts = 0;
-      this.currentFrame = 0;
+      this.shifts += this.frameWidth + 1;
+
+      if (this.currentFrame == this.totalFrames) {
+        this.shifts = 0;
+        this.currentFrame = 0;
+      }
+
+      this.currentFrame++;
     }
-
-    this.currentFrame++;
-    // requestAnimationFrame(this.drawRobot.bind(this));
   }
 
   moveUp() {

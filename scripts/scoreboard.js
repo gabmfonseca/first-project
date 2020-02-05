@@ -4,7 +4,7 @@ class Scoreboard {
     this.height = 40; // change size
     this.lifeBar = 3;
     this.startingTimestamp = null;
-    this.maximumTime = 10 * 1000;
+    this.maximumTime = 60 * 1000;
     this.timeLeft = this.maximumTime;
   }
 

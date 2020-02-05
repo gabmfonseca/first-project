@@ -5,7 +5,7 @@ class Meteor {
     this.positionY = 0;
     this.width = 100;
     this.height = 100;
-    this.speed = 4;
+    this.speed = 0;
     this.setRandomPosition();
     this.shifts = 0;
     this.frameWidth = 250;
@@ -20,6 +20,20 @@ class Meteor {
     this.positionY = Math.random() * 500; // canvas height 550px
 
     // check if it's not in the same place as a bone
+  }
+
+  updateSpeed(level) {
+    switch (level) {
+      case 1:
+        this.speed = 4;
+        break;
+      case 2:
+        this.speed = 6;
+        break;
+      case 3:
+        this.speed = 7;
+        break;
+    }
   }
 
   drawMeteor(timestamp) {
@@ -54,6 +68,7 @@ class Meteor {
 
   move() {
     this.positionX -= this.speed;
+
     this.game.robot.checkCollision(this);
   }
 }

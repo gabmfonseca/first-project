@@ -13,8 +13,6 @@ class Robot {
     this.changeSpeed = 100;
     this.timer = 0;
     this.invincible = false;
-    this.startShieldTime = null;
-    this.shieldTime = 10 * 1000;
   }
 
   drawRobot(timestamp) {
@@ -110,7 +108,7 @@ class Robot {
           this.invincible = false;
           console.log('shield down');
         };
-        setTimeout(shieldDown, 5000);
+        setTimeout(shieldDown, 10000);
       }
     }
   }

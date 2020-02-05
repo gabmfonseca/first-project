@@ -79,8 +79,17 @@ class Game {
   }
 
   pause() {
-    this.isRunning = !this.isRunning;
-    this.loop();
+    const $buttonPause = document.getElementById('btn-pause');
+
+    if (this.scoreboard.lifeBar > 0 || this.scoreboard.timeLeft > 0) {
+      this.isRunning = !this.isRunning;
+      if (this.isRunning) {
+        $buttonPause.innerText = 'Pause';
+      } else if (!this.isRunning) {
+        $buttonPause.innerText = 'Continue';
+      }
+      this.loop();
+    }
   }
 
   start() {
@@ -108,7 +117,7 @@ class Game {
     this.robot = new Robot(this);
 
     this.meteorsArray = [];
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       let meteor = new Meteor(this, 400 + i * 250);
       this.meteorsArray.push(meteor);
     }
@@ -143,6 +152,18 @@ class Game {
     }
 
     for (let meteor of this.meteorsArray) {
+      let timeLeft = this.scoreboard.timeLeft;
+
+      if (timeLeft > 20 * 1000) {
+        meteor.updateSpeed(1);
+      } else if (timeLeft <= 30 * 1000 && timeLeft > 10 * 1000) {
+        meteor.updateSpeed(2);
+        console.log('speed 2');
+      } else if (timeLeft <= 10 * 1000) {
+        meteor.updateSpeed(3);
+        console.log('speed 3');
+      }
+
       meteor.move();
     }
 

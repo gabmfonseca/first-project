@@ -61,7 +61,11 @@ class Game {
     }
 
     for (let bone of this.bonesArray) {
-      bone.drawBone(timestamp);
+      bone.drawBone();
+    }
+
+    for (let powerup of this.powerupsArray) {
+      powerup.drawPowerUp();
     }
 
     this.robot.drawRobot(timestamp);
@@ -115,6 +119,12 @@ class Game {
       this.bonesArray.push(bone);
     }
 
+    this.powerupsArray = [];
+    for (let i = 0; i < 2; i++) {
+      let powerup = new PowerUp(this, 1700 + i * 1000);
+      this.powerupsArray.push(powerup);
+    }
+
     if (!this.isRunning) {
       this.scoreboard = new Scoreboard(this);
       // this.scoreboard.countdown();
@@ -126,6 +136,10 @@ class Game {
   move() {
     for (let bone of this.bonesArray) {
       bone.move();
+    }
+
+    for (let powerup of this.powerupsArray) {
+      powerup.move();
     }
 
     for (let meteor of this.meteorsArray) {

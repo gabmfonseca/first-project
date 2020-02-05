@@ -15,7 +15,7 @@ class Bone {
     // check if it's not in the same place as a meteor
   }
 
-  drawBone(timestamp) {
+  drawBone() {
     const ctx = this.game.context;
     ctx.drawImage(boneImage, this.positionX, this.positionY, this.width, this.height);
   }

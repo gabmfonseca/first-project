@@ -11,3 +11,6 @@ robotImage.src = '../images/robot_sprite.png';
 
 const rockImage = new Image();
 rockImage.src = '../images/rock.png';
+
+// const powerupImage = new Image();
+// powerupImag.src = '../images/powerup.png';

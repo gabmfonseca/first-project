@@ -12,6 +12,9 @@ class Robot {
     this.currentFrame = 0;
     this.changeSpeed = 100;
     this.timer = 0;
+    this.invincible = false;
+    this.startShieldTime = null;
+    this.shieldTime = 10 * 1000;
   }
 
   drawRobot(timestamp) {
@@ -85,17 +88,29 @@ class Robot {
     ) {
       if (type === 'Meteor') {
         this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
-        console.log('collided with meteor');
-        this.game.scoreboard.lifeBar--;
-        // if (this.game.scoreboard.lifeBar === 0) {
-        //   this.game.fail();
-        // }
+
+        if (this.invincible) {
+          console.log('protected from meteor');
+        } else if (!this.invincible) {
+          console.log('collided with meteor');
+          this.game.scoreboard.lifeBar--;
+        }
       } else if (type === 'Bone') {
         this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
-        console.log('collided with bone');
+        console.log('collected bone');
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }
+      } else if (type === 'PowerUp') {
+        this.game.powerupsArray.splice(this.game.powerupsArray.indexOf(object), 1);
+        console.log('shield up');
+        this.invincible = true;
+
+        let shieldDown = () => {
+          this.invincible = false;
+          console.log('shield down');
+        };
+        setTimeout(shieldDown, 5000);
       }
     }
   }

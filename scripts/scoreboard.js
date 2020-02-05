@@ -3,7 +3,9 @@ class Scoreboard {
     this.game = game;
     this.height = 40; // change size
     this.lifeBar = 3;
-    this.timeLeft = 60;
+    this.startingTimestamp = null;
+    this.maximumTime = 10 * 1000;
+    this.timeLeft = this.maximumTime;
   }
 
   drawScore() {
@@ -18,7 +20,7 @@ class Scoreboard {
     ctx.fillStyle = 'black';
     ctx.font = '20px sans-serif';
     ctx.fillText('Lives: ' + this.lifeBar, 10, 25);
-    ctx.fillText(`Distance from Earth: ${(this.timeLeft * 27.65).toFixed(0)}km`, 110, 25);
+    ctx.fillText(`Distance from Earth: ${((this.timeLeft * 27.65) / 1000).toFixed(0)}km`, 110, 25);
     ctx.restore();
 
     // to add the image
@@ -29,10 +31,26 @@ class Scoreboard {
 
   reset() {
     this.lifeBar = 3;
-    this.timeLeft = 60;
+    this.startingTimestamp = null;
+    this.timeLeft = this.maximumTime;
   }
 
-  countdown() {
+  countdown(timestamp) {
+    if (!this.startingTimestamp) {
+      this.startingTimestamp = timestamp;
+    }
+
+    this.timeLeft = Math.max(this.maximumTime - (timestamp - this.startingTimestamp), 0);
+
+    if (this.lifeBar === 0) {
+      this.game.isRunning = false;
+      console.log('fail');
+    } else if (this.timeLeft <= 0) {
+      this.game.isRunning = false;
+      console.log('game won');
+    }
+
+    /*
     const countdown = () => {
       if (this.game.isRunning) {
         console.log(this.timeLeft);
@@ -53,5 +71,6 @@ class Scoreboard {
     };
 
     let intervalID = setInterval(countdown, 1000);
+    */
   }
 }

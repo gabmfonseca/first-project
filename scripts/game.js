@@ -61,7 +61,7 @@ class Game {
     }
 
     for (let bone of this.bonesArray) {
-      bone.drawBone();
+      bone.drawBone(timestamp);
     }
 
     this.robot.drawRobot(timestamp);
@@ -84,10 +84,6 @@ class Game {
 
     if (!this.isRunning) {
       this.isRunning = true;
-      this.loop();
-    }
-
-    if (!this.animation) {
       this.loop();
     }
   }
@@ -121,7 +117,7 @@ class Game {
 
     if (!this.isRunning) {
       this.scoreboard = new Scoreboard(this);
-      this.scoreboard.countdown();
+      // this.scoreboard.countdown();
     } else {
       this.scoreboard.reset();
     }
@@ -146,13 +142,12 @@ class Game {
   }
 
   loop(timestamp) {
-    this.drawEverything(timestamp);
     this.move();
+    this.scoreboard.countdown(timestamp);
+    this.drawEverything(timestamp);
 
     if (this.isRunning) {
-      this.animation = requestAnimationFrame(timestamp => this.loop(timestamp));
-    } else if (!this.isRunning) {
-      cancelAnimationFrame(this.animation);
+      requestAnimationFrame(timestamp => this.loop(timestamp));
     }
   }
 }

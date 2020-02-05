@@ -78,19 +78,21 @@ class Robot {
     // Then, check the type of object that collided (meteor or bone) and access the lifeBar
 
     if (
-      this.positionX + this.width > object.positionX &&
-      this.positionX < object.positionX + object.width &&
-      this.positionY + this.height > object.positionY &&
-      this.positionY < object.positionY + object.height
+      this.positionX + this.width - 40 > object.positionX &&
+      this.positionX < object.positionX + object.width - 40 &&
+      this.positionY + this.height - 40 > object.positionY &&
+      this.positionY < object.positionY + object.height - 40
     ) {
       if (type === 'Meteor') {
         this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
+        console.log('collided with meteor');
         this.game.scoreboard.lifeBar--;
         // if (this.game.scoreboard.lifeBar === 0) {
         //   this.game.fail();
         // }
       } else if (type === 'Bone') {
         this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
+        console.log('collided with bone');
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }

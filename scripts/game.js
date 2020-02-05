@@ -94,28 +94,28 @@ class Game {
 
   reset() {
     this.starsArray = [];
-    for (let i = 0; i < 1000; i++) {
-      let star = new Star(this, i * 20);
+    for (let i = 0; i < 300; i++) {
+      let star = new Star(this, i * 15);
       this.starsArray.push(star);
     }
 
     this.rocksArray = [];
-    for (let i = 0; i < 80; i++) {
-      let rock = new Rock(this, i * 400);
+    for (let i = 0; i < 20; i++) {
+      let rock = new Rock(this, i * 350);
       this.rocksArray.push(rock);
     }
 
     this.robot = new Robot(this);
 
     this.meteorsArray = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 60; i++) {
       let meteor = new Meteor(this, 400 + i * 250);
       this.meteorsArray.push(meteor);
     }
 
     this.bonesArray = [];
-    for (let i = 0; i < 50; i++) {
-      let bone = new Bone(this, 500 + i * 700);
+    for (let i = 0; i < 5; i++) {
+      let bone = new Bone(this, 500 + i * 800);
       this.bonesArray.push(bone);
     }
 

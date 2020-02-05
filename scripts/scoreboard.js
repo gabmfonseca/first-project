@@ -38,9 +38,10 @@ class Scoreboard {
         console.log(this.timeLeft);
         if (this.timeLeft > 0) {
           this.timeLeft--;
-        } else if (this.timeLeft === 0 || this.lifeBar === 0) {
+        } else if (this.timeLeft === 0) {
           console.log('game won');
           this.game.isRunning = false;
+          clearInterval(intervalID);
         }
       }
 

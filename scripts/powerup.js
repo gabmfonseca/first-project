@@ -11,7 +11,7 @@ class PowerUp {
     this.frameWidth = 200;
     this.frameHeight = 200;
     this.totalFrames = 2;
-    this.currentFrame = 0;
+    this.currentFrame = 1;
     this.changeSpeed = 100;
     this.timer = 0;
   }

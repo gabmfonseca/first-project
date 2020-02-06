@@ -14,6 +14,8 @@ class Game {
   startScreen() {
     window.addEventListener('load', () => {
       this.context.drawImage(startImage, 0, 0, this.$canvas.width, this.$canvas.height);
+      const $buttonPause = document.getElementById('btn-pause');
+      $buttonPause.style.display = 'none';
     });
   }
 
@@ -59,15 +61,17 @@ class Game {
     $buttonStart.addEventListener('click', () => {
       this.start();
       $buttonStart.innerText = 'Restart';
+      $buttonIntro.style.display = 'none';
+      $buttonPause.style.display = 'block';
     });
 
     $buttonIntro.addEventListener('click', () => {
       this.intro();
     });
 
-    // $buttonPause.addEventListener('click', () => {
-    //   this.pause();
-    // });
+    $buttonPause.addEventListener('click', () => {
+      this.pause();
+    });
   }
 
   control(value) {
@@ -121,16 +125,25 @@ class Game {
   }
 
   gameOver() {
-    // write code game over screen
+    this.clearScreen();
+    this.context.drawImage(gameoverImage, 0, 0, this.$canvas.width, this.$canvas.height);
+
+    const $buttonIntro = document.getElementById('btn-intro');
+    const $buttonPause = document.getElementById('btn-pause');
+
+    $buttonIntro.style.display = 'block';
+    $buttonPause.style.display = 'none';
   }
 
-  winGame() {
-    // write code win game screen
-  }
+  gameWon() {
+    this.clearScreen();
+    this.context.drawImage(gamewonImage, 0, 0, this.$canvas.width, this.$canvas.height);
 
-  fail() {
-    this.isRunning = false;
-    console.log('fail');
+    const $buttonIntro = document.getElementById('btn-intro');
+    const $buttonPause = document.getElementById('btn-pause');
+
+    $buttonIntro.style.display = 'block';
+    $buttonPause.style.display = 'none';
   }
 
   pause() {
@@ -234,9 +247,9 @@ class Game {
   loop(timestamp) {
     this.move();
     this.scoreboard.countdown(timestamp);
-    this.drawEverything(timestamp);
 
     if (this.isRunning) {
+      this.drawEverything(timestamp);
       requestAnimationFrame(timestamp => this.loop(timestamp));
     }
   }

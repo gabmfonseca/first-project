@@ -6,7 +6,7 @@ const meteorImage = new Image();
 meteorImage.src = '../images/meteor_sprite.png';
 
 const robotImage = new Image();
-// robotImage.src = '../images/robotmoving.png';
+// robotImage.src = '../images/robot.png';
 robotImage.src = '../images/robot_sprite.png';
 
 const rockImage = new Image();
@@ -20,6 +20,12 @@ startImage.src = '../images/start.png';
 
 const introImage = new Image();
 introImage.src = '../images/intro.png';
+
+const gameoverImage = new Image();
+gameoverImage.src = '../images/gameover.png';
+
+const gamewonImage = new Image();
+gamewonImage.src = '../images/gamewon.png';
 
 // const lifebarImage = new Image();
 // lifebarImage.src = '../images/lifebar.png';

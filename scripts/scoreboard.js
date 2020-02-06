@@ -9,7 +9,6 @@ class Scoreboard {
   }
 
   drawScore() {
-    // replace with life bar image
     let ctx = this.game.context;
     ctx.save();
     ctx.fillStyle = 'black';
@@ -44,9 +43,11 @@ class Scoreboard {
 
     if (this.lifeBar === 0) {
       this.game.isRunning = false;
+      this.game.gameOver();
       console.log('fail');
     } else if (this.timeLeft <= 0) {
       this.game.isRunning = false;
+      this.game.gameWon();
       console.log('game won');
     }
 

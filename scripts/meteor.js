@@ -11,7 +11,7 @@ class Meteor {
     this.frameWidth = 250;
     this.frameHeight = 250;
     this.totalFrames = 3;
-    this.currentFrame = 0;
+    this.currentFrame = 1;
     this.changeSpeed = 100;
     this.timer = 0;
   }

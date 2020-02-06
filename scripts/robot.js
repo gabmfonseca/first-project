@@ -9,7 +9,7 @@ class Robot {
     this.frameWidth = 250;
     this.frameHeight = 250;
     this.totalFrames = 3;
-    this.currentFrame = 0;
+    this.currentFrame = 1;
     this.changeSpeed = 100;
     this.timer = 0;
     this.invincible = false;
@@ -34,9 +34,9 @@ class Robot {
     if (this.timer < timestamp - this.changeSpeed) {
       this.timer = timestamp;
 
-      this.shifts += this.frameWidth + 1;
+      this.shifts += this.frameWidth;
 
-      if (this.currentFrame == this.totalFrames) {
+      if (this.currentFrame === this.totalFrames) {
         this.shifts = 0;
         this.currentFrame = 0;
       }
@@ -85,7 +85,6 @@ class Robot {
       this.positionY < object.positionY + object.height - 40
     ) {
       if (type === 'Meteor') {
-        // meteorImage.src = '../images/meteor_exploding.png';
         this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
 
         if (this.invincible) {
@@ -96,20 +95,17 @@ class Robot {
         }
       } else if (type === 'Bone') {
         this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
-        console.log('collected bone');
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }
       } else if (type === 'PowerUp') {
         this.game.powerupsArray.splice(this.game.powerupsArray.indexOf(object), 1);
-        console.log('shield up');
         robotImage.src = '../images/robot_power.png';
         this.invincible = true;
 
         let shieldDown = () => {
           robotImage.src = '../images/robot_sprite.png';
           this.invincible = false;
-          console.log('shield down');
         };
         setTimeout(shieldDown, 10000);
       }

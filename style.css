@@ -47,6 +47,7 @@ button {
   width: 165px;
 }
 
-#btn-intro {
+#btn-intro,
+#btn-pause {
   margin-right: 20px;
 }

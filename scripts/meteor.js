@@ -18,8 +18,6 @@ class Meteor {
 
   setRandomPosition() {
     this.positionY = Math.random() * 500; // canvas height 550px
-
-    // check if it's not in the same place as a bone
   }
 
   updateSpeed(level) {

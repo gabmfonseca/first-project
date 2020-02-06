@@ -3,16 +3,14 @@ class Bone {
     this.game = game;
     this.positionX = positionX;
     this.positionY = 0;
-    this.width = 30;
-    this.height = 30;
+    this.width = 45;
+    this.height = 35;
     this.speed = 1;
     this.setRandomPosition();
   }
 
   setRandomPosition() {
-    this.positionY = Math.random() * 500; // canvas height 550px
-
-    // check if it's not in the same place as a meteor
+    this.positionY = 40 + Math.random() * (500 - 70); // canvas height 550px
   }
 
   drawBone() {

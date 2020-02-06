@@ -14,6 +14,10 @@ class Game {
     const $buttonStart = document.getElementById('btn-start');
     const $buttonPause = document.getElementById('btn-pause');
 
+    window.addEventListener('load', () => {
+      this.context.drawImage(startScreenImage, 0, 0, this.$canvas.width, this.$canvas.height);
+    });
+
     $buttonStart.addEventListener('click', () => {
       this.start();
     });
@@ -65,12 +69,20 @@ class Game {
     }
 
     for (let powerup of this.powerupsArray) {
-      powerup.drawPowerUp();
+      powerup.drawPowerUp(timestamp);
     }
 
     this.robot.drawRobot(timestamp);
 
     this.scoreboard.drawScore();
+  }
+
+  gameOver() {
+    // write code game over screen
+  }
+
+  winGame() {
+    // write code win game screen
   }
 
   fail() {

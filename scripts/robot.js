@@ -4,7 +4,7 @@ class Robot {
     this.positionX = 60;
     this.positionY = 200;
     this.width = 150;
-    this.height = 130;
+    this.height = 140;
     this.shifts = 0;
     this.frameWidth = 250;
     this.frameHeight = 250;
@@ -85,6 +85,7 @@ class Robot {
       this.positionY < object.positionY + object.height - 40
     ) {
       if (type === 'Meteor') {
+        // meteorImage.src = '../images/meteor_exploding.png';
         this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
 
         if (this.invincible) {
@@ -102,9 +103,11 @@ class Robot {
       } else if (type === 'PowerUp') {
         this.game.powerupsArray.splice(this.game.powerupsArray.indexOf(object), 1);
         console.log('shield up');
+        robotImage.src = '../images/robot_power.png';
         this.invincible = true;
 
         let shieldDown = () => {
+          robotImage.src = '../images/robot_sprite.png';
           this.invincible = false;
           console.log('shield down');
         };

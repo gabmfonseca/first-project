@@ -12,5 +12,11 @@ robotImage.src = '../images/robot_sprite.png';
 const rockImage = new Image();
 rockImage.src = '../images/rock.png';
 
-// const powerupImage = new Image();
-// powerupImag.src = '../images/powerup.png';
+const powerupImage = new Image();
+powerupImage.src = '../images/powerup.png';
+
+const startScreenImage = new Image();
+startScreenImage.src = '../images/start_screen.png';
+
+// const lifebarImage = new Image();
+// lifebarImage.src = '../images/lifebar.png';

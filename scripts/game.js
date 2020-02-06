@@ -1,5 +1,10 @@
 const $canvas = document.querySelector('canvas');
 
+const $buttonStart = document.getElementById('btn-start');
+const $buttonIntro = document.getElementById('btn-intro');
+const $buttonPause = document.getElementById('btn-pause');
+const $buttonBack = document.getElementById('btn-back');
+
 class Game {
   constructor($canvas) {
     this.$canvas = $canvas;
@@ -8,61 +13,40 @@ class Game {
     this.controller = new Controller(this);
     this.controller.setKeyBindings();
     this.setControlBindings();
-    this.startScreen();
+    this.loadScreen();
+  }
+
+  loadScreen() {
+    window.addEventListener('load', () => {
+      this.startScreen();
+    });
   }
 
   startScreen() {
-    window.addEventListener('load', () => {
-      this.context.drawImage(startImage, 0, 0, this.$canvas.width, this.$canvas.height);
-      const $buttonPause = document.getElementById('btn-pause');
-      $buttonPause.style.display = 'none';
-    });
+    this.context.drawImage(startImage, 0, 0, this.$canvas.width, this.$canvas.height);
+    $buttonStart.innerText = 'Start';
+    $buttonIntro.style.display = 'block';
+    $buttonPause.style.display = 'none';
+    $buttonBack.style.display = 'none';
   }
 
   intro() {
     this.clearScreen();
-
     const ctx = this.context;
-    const positionX = this.$canvas.width / 2;
-
     ctx.drawImage(introImage, 0, 0, this.$canvas.width, this.$canvas.height);
-
-    ctx.save();
-    ctx.fillStyle = 'white';
-    ctx.font = '21px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(`Hello pilot!`, positionX, 100);
-    ctx.textAlign = 'center';
-    ctx.fillText(`On November 1957, Russia launched Sputnik 2.`, positionX, 150);
-    ctx.textAlign = 'center';
-    ctx.fillText(
-      `Onboard was the first passenger to orbit the Earth, a small dog named Laika.`,
-      positionX,
-      200
-    );
-    ctx.textAlign = 'center';
-    ctx.fillText(`Your mission today is to bring Laika safely back home.`, positionX, 250);
-    ctx.textAlign = 'center';
-    ctx.fillText(`Use the arrow keys to control the rescue robot.`, positionX, 300);
-    ctx.textAlign = 'center';
-    ctx.fillText(
-      `On your way, collect the bones and batteries, but beware of rolling meteors!`,
-      positionX,
-      350
-    );
-    ctx.restore();
+    $buttonStart.innerText = 'Start';
+    $buttonIntro.style.display = 'none';
+    $buttonPause.style.display = 'none';
+    $buttonBack.style.display = 'block';
   }
 
   setControlBindings() {
-    const $buttonStart = document.getElementById('btn-start');
-    const $buttonIntro = document.getElementById('btn-intro');
-    const $buttonPause = document.getElementById('btn-pause');
-
     $buttonStart.addEventListener('click', () => {
       this.start();
       $buttonStart.innerText = 'Restart';
       $buttonIntro.style.display = 'none';
       $buttonPause.style.display = 'block';
+      $buttonBack.style.display = 'none';
     });
 
     $buttonIntro.addEventListener('click', () => {
@@ -71,6 +55,11 @@ class Game {
 
     $buttonPause.addEventListener('click', () => {
       this.pause();
+    });
+
+    $buttonBack.addEventListener('click', () => {
+      this.clearScreen();
+      this.startScreen();
     });
   }
 
@@ -127,37 +116,29 @@ class Game {
   gameOver() {
     this.clearScreen();
     this.context.drawImage(gameoverImage, 0, 0, this.$canvas.width, this.$canvas.height);
-
-    const $buttonIntro = document.getElementById('btn-intro');
-    const $buttonPause = document.getElementById('btn-pause');
-
-    $buttonIntro.style.display = 'block';
+    $buttonStart.innerText = 'Restart';
+    $buttonIntro.style.display = 'none';
     $buttonPause.style.display = 'none';
+    $buttonBack.style.display = 'block';
   }
 
   gameWon() {
     this.clearScreen();
     this.context.drawImage(gamewonImage, 0, 0, this.$canvas.width, this.$canvas.height);
-
-    const $buttonIntro = document.getElementById('btn-intro');
-    const $buttonPause = document.getElementById('btn-pause');
-
-    $buttonIntro.style.display = 'block';
+    $buttonStart.innerText = 'Restart';
+    $buttonIntro.style.display = 'none';
     $buttonPause.style.display = 'none';
+    $buttonBack.style.display = 'block';
   }
 
   pause() {
-    const $buttonPause = document.getElementById('btn-pause');
-
-    if (this.scoreboard.lifeBar > 0 || this.scoreboard.timeLeft > 0) {
-      this.isRunning = !this.isRunning;
-      if (this.isRunning) {
-        $buttonPause.innerText = 'Pause';
-      } else if (!this.isRunning) {
-        $buttonPause.innerText = 'Continue';
-      }
-      this.loop();
+    this.isRunning = !this.isRunning;
+    if (this.isRunning) {
+      $buttonPause.innerText = 'Pause';
+    } else if (!this.isRunning) {
+      $buttonPause.innerText = 'Continue';
     }
+    this.loop();
   }
 
   start() {
@@ -198,7 +179,7 @@ class Game {
 
     this.powerupsArray = [];
     for (let i = 0; i < 2; i++) {
-      let powerup = new PowerUp(this, 1700 + i * 1000);
+      let powerup = new PowerUp(this, 1700 + i * 1300);
       this.powerupsArray.push(powerup);
     }
 

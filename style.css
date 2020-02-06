@@ -48,6 +48,7 @@ button {
 }
 
 #btn-intro,
-#btn-pause {
+#btn-pause,
+#btn-back {
   margin-right: 20px;
 }

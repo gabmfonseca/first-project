@@ -97,8 +97,13 @@ class Game {
     }
 
     for (let meteor of this.meteorsArray) {
-      meteor.drawMeteor(timestamp);
+      meteor.drawMeteorRolling(timestamp);
     }
+
+    // for (let meteor of collidedMeteorsArray) {
+    //   meteor.drawMeteorExploding(timestamp);
+    //   collidedMeteorsArray.splice(collidedMeteorsArray.indexOf(meteor), 1);
+    // }
 
     for (let bone of this.bonesArray) {
       bone.drawBone();
@@ -214,6 +219,10 @@ class Game {
       }
 
       meteor.move();
+
+      // if (meteor.positionX < -meteor.width) {
+      //   this.meteorsArray.splice(this.meteorsArray.indexOf(meteor), 1);
+      // }
     }
 
     for (let star of this.starsArray) {

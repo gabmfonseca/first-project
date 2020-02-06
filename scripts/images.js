@@ -4,6 +4,9 @@ boneImage.src = '../images/bone.png';
 const meteorImage = new Image();
 meteorImage.src = '../images/meteor_sprite.png';
 
+const meteorexplodingImage = new Image();
+meteorexplodingImage.src = '../images/meteor_exploding.png';
+
 const robotImage = new Image();
 robotImage.src = '../images/robot_sprite.png';
 

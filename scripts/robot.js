@@ -1,3 +1,5 @@
+// let collidedMeteorsArray = [];
+
 class Robot {
   constructor(game) {
     this.game = game;
@@ -74,6 +76,9 @@ class Robot {
 
   checkCollision(object) {
     const type = object.constructor.name;
+    const meteorsArray = this.game.meteorsArray;
+    const bonesArray = this.game.bonesArray;
+    const powerupsArray = this.game.powerupsArray;
 
     // First, check if there's a collision
     // Then, check the type of object that collided (meteor or bone) and access the lifeBar
@@ -85,7 +90,8 @@ class Robot {
       this.positionY < object.positionY + object.height - 40
     ) {
       if (type === 'Meteor') {
-        this.game.meteorsArray.splice(this.game.meteorsArray.indexOf(object), 1);
+        // collidedMeteorsArray.push(meteorsArray[meteorsArray.indexOf(object)]);
+        meteorsArray.splice(meteorsArray.indexOf(object), 1);
 
         if (this.invincible) {
           console.log('protected from meteor');
@@ -94,12 +100,12 @@ class Robot {
           this.game.scoreboard.lifeBar--;
         }
       } else if (type === 'Bone') {
-        this.game.bonesArray.splice(this.game.bonesArray.indexOf(object), 1);
+        bonesArray.splice(bonesArray.indexOf(object), 1);
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }
       } else if (type === 'PowerUp') {
-        this.game.powerupsArray.splice(this.game.powerupsArray.indexOf(object), 1);
+        powerupsArray.splice(powerupsArray.indexOf(object), 1);
         robotImage.src = '../images/robot_power.png';
         this.invincible = true;
 

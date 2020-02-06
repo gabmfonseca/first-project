@@ -10,10 +10,11 @@ class Meteor {
     this.shifts = 0;
     this.frameWidth = 250;
     this.frameHeight = 250;
-    this.totalFrames = 3;
+    //this.totalFrames = 3;
     this.currentFrame = 1;
     this.changeSpeed = 100;
     this.timer = 0;
+    this.exploded = false;
   }
 
   setRandomPosition() {
@@ -28,18 +29,15 @@ class Meteor {
       case 2:
         this.speed = 6;
         break;
-      case 3:
-        this.speed = 7;
-        break;
+      // case 3:
+      //   this.speed = 7;
+      //   break;
     }
   }
 
-  drawMeteor(timestamp) {
-    // const ctx = this.game.context;
-    // ctx.drawImage(meteorImage, this.positionX, this.positionY, this.width, this.height);
-
+  drawMeteor(timestamp, image, totalFrames) {
     this.game.context.drawImage(
-      meteorImage,
+      image,
       this.shifts,
       0,
       this.frameWidth,
@@ -55,7 +53,7 @@ class Meteor {
 
       this.shifts += this.frameWidth + 1;
 
-      if (this.currentFrame == this.totalFrames) {
+      if (this.currentFrame == totalFrames) {
         this.shifts = 0;
         this.currentFrame = 0;
       }
@@ -63,6 +61,14 @@ class Meteor {
       this.currentFrame++;
     }
   }
+
+  drawMeteorRolling(timestamp) {
+    this.drawMeteor(timestamp, meteorImage, 3);
+  }
+
+  // drawMeteorExploding(timestamp) {
+  //   this.drawMeteor(timestamp, meteorexplodingImage, 4);
+  // }
 
   move() {
     this.positionX -= this.speed;

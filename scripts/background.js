@@ -45,7 +45,7 @@ class Rock {
 
   setRandomPosition() {
     let ctx = this.game.context;
-    this.positionY = Math.random() * ctx.canvas.height;
+    this.positionY = 20 + Math.random() * (ctx.canvas.height - 40);
   }
 
   setRandomDimensions() {

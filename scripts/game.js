@@ -8,23 +8,66 @@ class Game {
     this.controller = new Controller(this);
     this.controller.setKeyBindings();
     this.setControlBindings();
+    this.startScreen();
+  }
+
+  startScreen() {
+    window.addEventListener('load', () => {
+      this.context.drawImage(startImage, 0, 0, this.$canvas.width, this.$canvas.height);
+    });
+  }
+
+  intro() {
+    this.clearScreen();
+
+    const ctx = this.context;
+    const positionX = this.$canvas.width / 2;
+
+    ctx.drawImage(introImage, 0, 0, this.$canvas.width, this.$canvas.height);
+
+    ctx.save();
+    ctx.fillStyle = 'white';
+    ctx.font = '21px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`Hello pilot!`, positionX, 100);
+    ctx.textAlign = 'center';
+    ctx.fillText(`On November 1957, Russia launched Sputnik 2.`, positionX, 150);
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      `Onboard was the first passenger to orbit the Earth, a small dog named Laika.`,
+      positionX,
+      200
+    );
+    ctx.textAlign = 'center';
+    ctx.fillText(`Your mission today is to bring Laika safely back home.`, positionX, 250);
+    ctx.textAlign = 'center';
+    ctx.fillText(`Use the arrow keys to control the rescue robot.`, positionX, 300);
+    ctx.textAlign = 'center';
+    ctx.fillText(
+      `On your way, collect the bones and batteries, but beware of rolling meteors!`,
+      positionX,
+      350
+    );
+    ctx.restore();
   }
 
   setControlBindings() {
     const $buttonStart = document.getElementById('btn-start');
+    const $buttonIntro = document.getElementById('btn-intro');
     const $buttonPause = document.getElementById('btn-pause');
-
-    window.addEventListener('load', () => {
-      this.context.drawImage(startScreenImage, 0, 0, this.$canvas.width, this.$canvas.height);
-    });
 
     $buttonStart.addEventListener('click', () => {
       this.start();
+      $buttonStart.innerText = 'Restart';
     });
 
-    $buttonPause.addEventListener('click', () => {
-      this.pause();
+    $buttonIntro.addEventListener('click', () => {
+      this.intro();
     });
+
+    // $buttonPause.addEventListener('click', () => {
+    //   this.pause();
+    // });
   }
 
   control(value) {

@@ -15,8 +15,11 @@ rockImage.src = '../images/rock.png';
 const powerupImage = new Image();
 powerupImage.src = '../images/powerup.png';
 
-const startScreenImage = new Image();
-startScreenImage.src = '../images/start_screen.png';
+const startImage = new Image();
+startImage.src = '../images/start.png';
+
+const introImage = new Image();
+introImage.src = '../images/intro.png';
 
 // const lifebarImage = new Image();
 // lifebarImage.src = '../images/lifebar.png';

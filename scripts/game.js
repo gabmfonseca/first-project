@@ -31,6 +31,7 @@ class Game {
   }
 
   intro() {
+    this.stopAllAudio();
     this.clearScreen();
     const ctx = this.context;
     ctx.drawImage(introImage, 0, 0, this.$canvas.width, this.$canvas.height);
@@ -38,6 +39,17 @@ class Game {
     $buttonIntro.style.display = 'none';
     $buttonPause.style.display = 'none';
     $buttonBack.style.display = 'block';
+  }
+
+  stopAudio(audio) {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  stopAllAudio() {
+    this.stopAudio(soundtrack);
+    // this.stopAudio(gameoverSound);
+    // this.stopAudio(gamewonSound);
   }
 
   setControlBindings() {
@@ -58,6 +70,7 @@ class Game {
     });
 
     $buttonBack.addEventListener('click', () => {
+      this.stopAllAudio();
       this.clearScreen();
       this.startScreen();
     });
@@ -100,10 +113,14 @@ class Game {
       meteor.drawMeteorRolling(timestamp);
     }
 
-    // for (let meteor of collidedMeteorsArray) {
-    //   meteor.drawMeteorExploding(timestamp);
-    //   collidedMeteorsArray.splice(collidedMeteorsArray.indexOf(meteor), 1);
-    // }
+    for (let meteor of collidedMeteorsArray) {
+      meteor.drawMeteorExploding(timestamp);
+
+      let explosion = () => {
+        collidedMeteorsArray.splice(collidedMeteorsArray.indexOf(meteor), 1);
+      };
+      setTimeout(explosion, 250);
+    }
 
     for (let bone of this.bonesArray) {
       bone.drawBone();
@@ -119,7 +136,10 @@ class Game {
   }
 
   gameOver() {
+    this.stopAllAudio();
+    // gameoverSound.play();
     this.clearScreen();
+    collidedMeteorsArray = [];
     this.context.drawImage(gameoverImage, 0, 0, this.$canvas.width, this.$canvas.height);
     $buttonStart.innerText = 'Restart';
     $buttonIntro.style.display = 'none';
@@ -128,6 +148,8 @@ class Game {
   }
 
   gameWon() {
+    // this.stopAllAudio();
+    // gamewonSound.play();
     this.clearScreen();
     this.context.drawImage(gamewonImage, 0, 0, this.$canvas.width, this.$canvas.height);
     $buttonStart.innerText = 'Restart';
@@ -140,13 +162,17 @@ class Game {
     this.isRunning = !this.isRunning;
     if (this.isRunning) {
       $buttonPause.innerText = 'Pause';
+      soundtrack.play();
     } else if (!this.isRunning) {
       $buttonPause.innerText = 'Continue';
+      soundtrack.pause();
     }
     this.loop();
   }
 
   start() {
+    this.stopAllAudio();
+    soundtrack.play();
     this.reset();
 
     if (!this.isRunning) {
@@ -208,16 +234,11 @@ class Game {
     for (let meteor of this.meteorsArray) {
       let timeLeft = this.scoreboard.timeLeft;
 
-      if (timeLeft > 20 * 1000) {
+      if (timeLeft > 30 * 1000) {
         meteor.updateSpeed(1);
-      } else if (timeLeft <= 30 * 1000 && timeLeft > 10 * 1000) {
+      } else if (timeLeft <= 30 * 1000) {
         meteor.updateSpeed(2);
-        console.log('speed 2');
-      } else if (timeLeft <= 10 * 1000) {
-        meteor.updateSpeed(3);
-        console.log('speed 3');
       }
-
       meteor.move();
 
       // if (meteor.positionX < -meteor.width) {

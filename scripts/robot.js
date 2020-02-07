@@ -1,4 +1,4 @@
-// let collidedMeteorsArray = [];
+let collidedMeteorsArray = [];
 
 class Robot {
   constructor(game) {
@@ -18,9 +18,6 @@ class Robot {
   }
 
   drawRobot(timestamp) {
-    // const ctx = this.game.context;
-    // ctx.drawImage(robotImage, this.positionX, this.positionY, this.width, this.height);
-
     this.game.context.drawImage(
       robotImage,
       this.shifts,
@@ -90,7 +87,8 @@ class Robot {
       this.positionY < object.positionY + object.height - 40
     ) {
       if (type === 'Meteor') {
-        // collidedMeteorsArray.push(meteorsArray[meteorsArray.indexOf(object)]);
+        explosionSound.play();
+        collidedMeteorsArray.push(meteorsArray[meteorsArray.indexOf(object)]);
         meteorsArray.splice(meteorsArray.indexOf(object), 1);
 
         if (this.invincible) {
@@ -100,17 +98,19 @@ class Robot {
           this.game.scoreboard.lifeBar--;
         }
       } else if (type === 'Bone') {
+        boneSound.play();
         bonesArray.splice(bonesArray.indexOf(object), 1);
         if (this.game.scoreboard.lifeBar < 3) {
           this.game.scoreboard.lifeBar++;
         }
       } else if (type === 'PowerUp') {
+        powerupSound.play();
         powerupsArray.splice(powerupsArray.indexOf(object), 1);
-        robotImage.src = '../images/robot_power.png';
+        robotImage.src = '../assets/images/robot_power.png';
         this.invincible = true;
 
         let shieldDown = () => {
-          robotImage.src = '../images/robot_sprite.png';
+          robotImage.src = '../assets/images/robot_sprite.png';
           this.invincible = false;
         };
         setTimeout(shieldDown, 10000);

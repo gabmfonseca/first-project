@@ -1,32 +1,32 @@
 const boneImage = new Image();
-boneImage.src = '../images/bone.png';
+boneImage.src = '../assets/images/bone.png';
 
 const meteorImage = new Image();
-meteorImage.src = '../images/meteor_sprite.png';
+meteorImage.src = '../assets/images/meteor_sprite.png';
 
 const meteorexplodingImage = new Image();
-meteorexplodingImage.src = '../images/meteor_exploding.png';
+meteorexplodingImage.src = '../assets/images/meteor_exploding.png';
 
 const robotImage = new Image();
-robotImage.src = '../images/robot_sprite.png';
+robotImage.src = '../assets/images/robot_sprite.png';
 
 const rockImage = new Image();
-rockImage.src = '../images/rock.png';
+rockImage.src = '../assets/images/rock.png';
 
 const powerupImage = new Image();
-powerupImage.src = '../images/powerup.png';
+powerupImage.src = '../assets/images/powerup.png';
 
 const startImage = new Image();
-startImage.src = '../images/start.png';
+startImage.src = '../assets/images/start.png';
 
 const introImage = new Image();
-introImage.src = '../images/intro.png';
+introImage.src = '../assets/images/intro.png';
 
 const gameoverImage = new Image();
-gameoverImage.src = '../images/gameover.png';
+gameoverImage.src = '../assets/images/gameover.png';
 
 const gamewonImage = new Image();
-gamewonImage.src = '../images/gamewon.png';
+gamewonImage.src = '../assets/images/gamewon.png';
 
 // const lifebarImage = new Image();
-// lifebarImage.src = '../images/lifebar.png';
+// lifebarImage.src = '../assets/images/lifebar.png';

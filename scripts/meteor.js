@@ -10,7 +10,6 @@ class Meteor {
     this.shifts = 0;
     this.frameWidth = 250;
     this.frameHeight = 250;
-    //this.totalFrames = 3;
     this.currentFrame = 1;
     this.changeSpeed = 100;
     this.timer = 0;
@@ -27,15 +26,15 @@ class Meteor {
         this.speed = 4;
         break;
       case 2:
-        this.speed = 6;
+        this.speed = 7;
         break;
       // case 3:
-      //   this.speed = 7;
+      //   this.speed = 8;
       //   break;
     }
   }
 
-  drawMeteor(timestamp, image, totalFrames) {
+  drawSprite(timestamp, image, totalFrames) {
     this.game.context.drawImage(
       image,
       this.shifts,
@@ -51,7 +50,7 @@ class Meteor {
     if (this.timer < timestamp - this.changeSpeed) {
       this.timer = timestamp;
 
-      this.shifts += this.frameWidth + 1;
+      this.shifts += this.frameWidth;
 
       if (this.currentFrame == totalFrames) {
         this.shifts = 0;
@@ -63,12 +62,12 @@ class Meteor {
   }
 
   drawMeteorRolling(timestamp) {
-    this.drawMeteor(timestamp, meteorImage, 3);
+    this.drawSprite(timestamp, meteorImage, 3);
   }
 
-  // drawMeteorExploding(timestamp) {
-  //   this.drawMeteor(timestamp, meteorexplodingImage, 4);
-  // }
+  drawMeteorExploding(timestamp) {
+    this.drawSprite(timestamp, meteorexplodingImage, 3);
+  }
 
   move() {
     this.positionX -= this.speed;

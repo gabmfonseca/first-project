@@ -5,6 +5,8 @@ Laika travelled into orbit with no plans to bring her back.
 
 The mission is to control the rescue robot and bring Laika back home.
 
+Play here: https://rescue-laika-game.netlify.com/
+
 ## Instructions
 * Collect bones to get a life back.
 * Get new batteries to be indestructible for 10 seconds.
